@@ -1,0 +1,355 @@
+:root {
+    --bg-color: #0f0505;
+    --rose-red: #d90429;
+    --rose-dark: #8d0801;
+    --leaf-green: #2d6a4f;
+    --stem-green: #1b4332;
+    --text-color: #fff0f3;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Background Stars/Night */
+.night {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0b0b 0%, #000000 100%);
+    z-index: -1;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+    text-shadow: 0 0 10px rgba(217, 4, 41, 0.5);
+}
+
+.subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeIn 2s ease-out 1s forwards;
+    color: #ffccd5;
+}
+
+/* Flower Wrapper */
+.flower-wrapper {
+    position: relative;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.flower-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.flower {
+    position: relative;
+    width: 100px;
+    /* Base width for positioning */
+}
+
+.stem {
+    width: 6px;
+    height: 250px;
+    background: linear-gradient(to right, #1b4332, #40916c);
+    margin: 0 auto;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: var(--leaf-green);
+    border-radius: 0 40px 0 40px;
+    z-index: 0;
+    transition: transform 1s ease-in-out;
+}
+
+.leaf-1 {
+    top: 100px;
+    left: -35px;
+    transform: rotate(-10deg);
+}
+
+.leaf-2 {
+    top: 140px;
+    right: -35px;
+    transform: rotate(10deg) scaleX(-1);
+}
+
+/* Petals */
+.petals {
+    position: absolute;
+    top: -40px;
+    /* Adjust based on stem height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    z-index: 2;
+}
+
+.petal {
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    background: radial-gradient(circle at 30% 30%, #ff4d6d, #8d0801);
+    border-radius: 50% 50% 0 0;
+    bottom: 0;
+    left: -25px;
+    /* Center horizontally */
+    transform-origin: bottom center;
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 0, 0, 0.1);
+}
+
+/* Closed State (Bud) - overlapping to form a bud */
+.petal.layer1 {
+    z-index: 5;
+    height: 60px;
+    background: #9b0b18;
+}
+
+.petal.layer1.p1 {
+    transform: rotate(0deg) scale(0.8);
+}
+
+.petal.layer1.p2 {
+    transform: rotate(120deg) scale(0.8);
+}
+
+.petal.layer1.p3 {
+    transform: rotate(240deg) scale(0.8);
+}
+
+.petal.layer2 {
+    z-index: 4;
+    height: 65px;
+    background: #a4161a;
+}
+
+.petal.layer2.p1 {
+    transform: rotate(60deg) scale(0.9);
+}
+
+.petal.layer2.p2 {
+    transform: rotate(180deg) scale(0.9);
+}
+
+.petal.layer2.p3 {
+    transform: rotate(300deg) scale(0.9);
+}
+
+.petal.layer3 {
+    z-index: 3;
+    height: 70px;
+    background: #ba181b;
+}
+
+.petal.layer3.p1 {
+    transform: rotate(30deg) scale(1.0);
+}
+
+.petal.layer3.p2 {
+    transform: rotate(150deg) scale(1.0);
+}
+
+.petal.layer3.p3 {
+    transform: rotate(270deg) scale(1.0);
+}
+
+.center {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: #590d22;
+    border-radius: 20px;
+    bottom: 5px;
+    left: -10px;
+    z-index: 6;
+    opacity: 1;
+    transition: opacity 1s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Blooming State classes applied by JS */
+.blooming .center {
+    opacity: 0;
+}
+
+/* Layer 1 - Inner most */
+.blooming .petal.layer1.p1 {
+    transform: rotate(-10deg) translateX(-10px) translateY(5px);
+    transition-delay: 0.1s;
+}
+
+.blooming .petal.layer1.p2 {
+    transform: rotate(110deg) translateX(-10px) translateY(5px);
+    transition-delay: 0.1s;
+}
+
+.blooming .petal.layer1.p3 {
+    transform: rotate(230deg) translateX(-10px) translateY(5px);
+    transition-delay: 0.1s;
+}
+
+/* Layer 2 - Middle */
+.blooming .petal.layer2.p1 {
+    transform: rotate(-30deg) translateX(-20px) translateY(10px) scale(1.1);
+    transition-delay: 0.2s;
+}
+
+.blooming .petal.layer2.p2 {
+    transform: rotate(90deg) translateX(-20px) translateY(10px) scale(1.1);
+    transition-delay: 0.2s;
+}
+
+.blooming .petal.layer2.p3 {
+    transform: rotate(210deg) translateX(-20px) translateY(10px) scale(1.1);
+    transition-delay: 0.2s;
+}
+
+/* Layer 3 - Outer */
+.blooming .petal.layer3.p1 {
+    transform: rotate(-60deg) translateX(-30px) translateY(15px) scale(1.2);
+    transition-delay: 0.3s;
+}
+
+.blooming .petal.layer3.p2 {
+    transform: rotate(60deg) translateX(-30px) translateY(15px) scale(1.2);
+    transition-delay: 0.3s;
+}
+
+.blooming .petal.layer3.p3 {
+    transform: rotate(180deg) translateX(-30px) translateY(15px) scale(1.2);
+    transition-delay: 0.3s;
+}
+
+/* Message Card */
+.message-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease-out;
+    display: none;
+    /* Initially hidden from layout flow if needed, but opacity handles visuals */
+}
+
+.message-card.show {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+    animation: glow 3s infinite alternate;
+}
+
+.message-card h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ff4d6d;
+    margin-bottom: 1rem;
+}
+
+.message-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px -5px #ff4d6d;
+    }
+
+    to {
+        box-shadow: 0 0 20px 5px rgba(255, 77, 109, 0.3);
+    }
+}
+
+/* Leaf Animation on Bloom */
+.blooming~.leaf-1 {
+    transform: rotate(-25deg) scale(1.1);
+}
+
+.blooming~.leaf-2 {
+    transform: rotate(25deg) scaleX(-1) scale(1.1);
+}
+
+/* Particle/Sparkle effects */
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    animation: rise 4s linear infinite;
+    opacity: 0;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
