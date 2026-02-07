@@ -18,12 +18,14 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Montserrat', sans-serif;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* Centers horizontally */
     position: relative;
+    padding: 20px 0;
+    /* Add padding to prevent edge touching */
 }
 
 /* Background Stars/Night */
@@ -44,6 +46,8 @@ body {
     width: 100%;
     max-width: 600px;
     padding: 20px;
+    margin: auto;
+    /* Vertically centers the container */
 }
 
 .title {

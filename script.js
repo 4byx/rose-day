@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Slight delay to allow display:block to apply before opacity transition
             setTimeout(() => {
                 messageCard.classList.add('show');
+                messageCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
 
             // Change subtitle text
